@@ -5,23 +5,52 @@ $(setUp)
 function setUp() {
   $('body').append($('<button>'));
   $('body').append($('<div id="topnav">'));
-     
+
   $('button').on('click', playGame);
 }
 
+var player1 = {
+  Score: 0,
+  Life: 100
+}
+
+var player2 = {
+  Score: 0,
+  Life: 100
+}
+
+function player1Turn(player1) {
+  playGame(player1);
+  console.log("Player 1 Score: " + player1.playerScore);
+}
+
 function playGame() {
-  $('body').append($('<div id="container">'));
-  $('#topnav').append($('<form class="scoreBoard" id="player1Score">'));
-  $('#topnav').append($('<form class="scoreBoard" id="player2Score">'));
+  $('<button>').remove();
+  $('body').append($('<div id="screen">'));
+  $('#topnav').append($('<form class="scoreBoard" id="DisplayPlayerScore">'));
+  $('#topnav').append($('<form class="scoreBoard" id="DisplayPlayerLife">'));
+  $('<button>').toggleClass("hidden");
+
   for (n=0; n<20; n++) {
-    $('#container').append($('<div id="div' + n +'">')); // create divs with different //IDs style="background-color:red"
+    $('#screen').append($('<div id="div' + n +'">')); // create divs with different //IDs style="background-color:red"
   }
-  var $items = $("#container > div");
-  var itemInterval = setInterval(randomItem, 1000);
+  var $items = $("#screen > div");
+  var timerId = setInterval(createRandomItem, 1000);
+  setTimeout(function() {
+    clearInterval(timerId);
+
+    // if (playGame(player1)) {
+    //   playGame(player2);
+    // } else {
+    // checkForWinner();
+    // console.log(timerId)
+    // };
+
+  }, 60*1000); // 60sec
   var playerScore = 0;
   var playerLife = 100;
   
-  function randomItem() {
+  function createRandomItem() {
     var $randomItem = $items.eq(Math.floor(Math.random() * $items.length));
     if ($($items).hasClass("")) {
       $randomItem.toggleClass("active");
@@ -29,8 +58,14 @@ function playGame() {
         if($randomItem.hasClass("active")) {
           $randomItem.removeClass("active");
           playerLife -= 10;
+          $('#DisplayPlayerLife').text("Life:" + playerLife);
           console.log("Life " + playerLife);
           // check for dead ---> if life = 0, start player 2!
+            if (player1.Life === 0) {
+              //start player2;
+            } else {
+              //checkForWinner
+            }
         }
       }, 2000);
     } 
@@ -42,15 +77,17 @@ function playGame() {
       if ($(this).hasClass("active")) {
           $(this).removeClass("active");
           playerScore += 100;
-          $('#player1Score').text(playerScore);
+          $('#DisplayPlayerScore').text("Score: " + playerScore);
           console.log("Score " + playerScore);
       };
     });  
   }
 }
 
-
-
-
-
-
+function checkForWinner() {
+  if (player1Score > player2Score) {
+    alert("Player 1 Wins!");
+  } else {
+    alert("Player 2 Wins");
+  }
+}

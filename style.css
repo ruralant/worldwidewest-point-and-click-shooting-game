@@ -1,7 +1,14 @@
-#container {
+
+
+#topnav {
+  height: 100px;
+}
+
+#screen {
   width: 500px;
 }
-#container div {
+
+#screen div {
   width: 100px;
   height: 100px;
   border: 1px solid black;
@@ -17,4 +24,11 @@
   height: 40px;
   border: 1px solid black;
   display: inline-block;
+  vertical-align: top;
 }
+
+.hidden {
+  display: none!important;
+}
+
+
