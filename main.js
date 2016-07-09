@@ -3,14 +3,16 @@
 $(setUp)
 
 function setUp() {
+  $('body').append($('<button>'));
   $('body').append($('<div id="topnav">'));
-  $('#topnav').append($('<button>'))
      
   $('button').on('click', playGame);
 }
 
 function playGame() {
   $('body').append($('<div id="container">'));
+  $('#topnav').append($('<form class="scoreBoard" id="player1Score">'));
+  $('#topnav').append($('<form class="scoreBoard" id="player2Score">'));
   for (n=0; n<20; n++) {
     $('#container').append($('<div id="div' + n +'">')); // create divs with different //IDs style="background-color:red"
   }
@@ -24,9 +26,12 @@ function playGame() {
     if ($($items).hasClass("")) {
       $randomItem.toggleClass("active");
       setTimeout(function() {
-        $randomItem.removeClass("active");
-        playerLife -= 10;
-        console.log("Life " + playerLife);
+        if($randomItem.hasClass("active")) {
+          $randomItem.removeClass("active");
+          playerLife -= 10;
+          console.log("Life " + playerLife);
+          // check for dead ---> if life = 0, start player 2!
+        }
       }, 2000);
     } 
     clickedItem($randomItem);
@@ -35,14 +40,13 @@ function playGame() {
   function clickedItem($randomItem) {
     $($randomItem).on('click', function() {
       if ($(this).hasClass("active")) {
-        $(this).removeClass("active");
-        playerScore += 100;
-        console.log("Score " + playerScore);
+          $(this).removeClass("active");
+          playerScore += 100;
+          $('#player1Score').text(playerScore);
+          console.log("Score " + playerScore);
       };
     });  
-  } 
-  
-
+  }
 }
 
 

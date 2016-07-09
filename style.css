@@ -12,6 +12,9 @@
   background-color: yellow
 }
 
-.deactive {
-  background-color: transparent;
+.scoreBoard {
+  width: 100px;
+  height: 40px;
+  border: 1px solid black;
+  display: inline-block;
 }
