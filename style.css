@@ -1,22 +1,35 @@
-
-
-#topnav {
-  height: 100px;
-}
-
-#screen {
+#splashScreen {
   width: 500px;
 }
 
-#screen div {
+#topNav {
+  height: 100px;
+}
+
+#gameScreen {
+  width: 500px;
+}
+
+#gameScreen div {
   width: 100px;
   height: 100px;
   border: 1px solid black;
   display: inline-block;
 }
 
+#winner {
+  idth: 100px;
+    height: 100px;
+    border: 1px solid blue;
+    display: inline-block;
+}
+
 .active {
   background-color: yellow
+}
+
+.hidden {
+  display: none!important;
 }
 
 .scoreBoard {
@@ -26,9 +39,3 @@
   display: inline-block;
   vertical-align: top;
 }
-
-.hidden {
-  display: none!important;
-}
-
-
