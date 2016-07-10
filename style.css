@@ -5,7 +5,7 @@
 }
 
 body {
-  background-image: url(images/body-back.jpg);
+  background-image: url(images/body-background3.jpg);
   background-size: cover;
 }
 
@@ -14,6 +14,17 @@ button {
   position: absolute;
   top: 50%;
   left: 50%;
+  background-color: rgb(143,39,2);
+  border: none;
+  border-radius: 25px;
+  color: rgb(252,220,55);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 70px;
+  font-family: 'Smokum', cursive;
+  text-shadow: 2px 2px #000000;
 }
 img {
   max-width:100%;
@@ -30,38 +41,41 @@ img {
 }
 
 .scoreBoard {
-  z-index: 2;
-  width: 100px;
+  width: 150px;
   height: 40px;
-  border: 1px solid blue;
+  padding-top: 7.5px;
   display: inline-block;
   vertical-align: top;
-  background-image: url(images/button.jpg);
+  background-image: url(images/button.png);
   background-size: cover;
+  font-size: 1.3em;
+  color: rgb(252,220,55);
+  text-shadow: 1px 1px #000000;
+  z-index: 2;
 }
 #wrapper {
-  z-index: -1;
   width: 1200px;
   height: 700px;
+  border-radius: 25px;
   overflow:hidden;
   margin-right: auto;
   margin-left: auto;
   transform: translateY(+10px);
+  z-index: -1;
 
 }
 #splashScreen {
   width: 100%; 
   height: 100%;
   background-image: url(images/background1.jpg);
-  background-repeat: no-repeat;
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #topNav {
     width: 1200px;
     height: 50px;
     text-align: center;
-    /*background: rgba(19, 19, 21, 0.90);*/
     font-family: 'Smokum', cursive;
 }
 
@@ -69,11 +83,11 @@ img {
   background: #000; 
   width: 1200px;
   height: 700px;
-  z-index: 10;
+  position:relative;
   background-image: url(images/background.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  position:relative;
+  z-index: 10;
 }
 
 #gameScreen div {

@@ -16,6 +16,7 @@ $('button').on('click', function() {
 $items.on('click', function() {
   if ($(this).hasClass("active")) {
     $(this).removeClass("active");
+    $(this).fadeOut("slow");
     player.score += 100;
     $('#DisplayPlayerScore').text("Score: " + player.score);
     console.log("Score " + player.score);
@@ -48,7 +49,7 @@ function gameOver() {
 
 
 function playGame() {
-
+  
   $('#splashScreen').addClass("hidden");
   $('#topNav').removeClass("hidden");
   $('#gameScreen').removeClass("hidden");
@@ -68,10 +69,11 @@ function playGame() {
       setTimeout(function() {
         if($randomItem.hasClass("active")) {
           $randomItem.removeClass("active");
+          $randomItem.fadeOut("slow");
           player.life -= 10;
           $('#DisplayPlayerLife').text("Life:" + player.life);
           if(player.life === 0) {
-            gameOver().delay(3*1000);
+            gameOver();
           }
         }
       }, 1000);
