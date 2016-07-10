@@ -1,41 +1,142 @@
-#splashScreen {
-  width: 500px;
+* { 
+  margin:0; 
+  padding:0; 
+  box-sizing:border-box; 
 }
 
-#topNav {
-  height: 100px;
+body {
+  background-image: url(images/body-back.jpg);
+  background-size: cover;
 }
 
-#gameScreen {
-  width: 500px;
+button {
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
-
-#gameScreen div {
-  width: 100px;
-  height: 100px;
-  border: 1px solid black;
-  display: inline-block;
-}
-
-#winner {
-  idth: 100px;
-    height: 100px;
-    border: 1px solid blue;
-    display: inline-block;
+img {
+  max-width:100%;
+  max-height:100%;
 }
 
 .active {
   background-color: yellow
 }
+/*remove at the end*/
 
 .hidden {
   display: none!important;
 }
 
 .scoreBoard {
+  z-index: 2;
   width: 100px;
   height: 40px;
-  border: 1px solid black;
+  border: 1px solid blue;
   display: inline-block;
   vertical-align: top;
+  background-image: url(images/button.jpg);
+  background-size: cover;
+}
+#wrapper {
+  z-index: -1;
+  width: 1200px;
+  height: 700px;
+  overflow:hidden;
+  margin-right: auto;
+  margin-left: auto;
+  transform: translateY(+10px);
+
+}
+#splashScreen {
+  width: 100%; 
+  height: 100%;
+  background-image: url(images/background1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#topNav {
+    width: 1200px;
+    height: 50px;
+    text-align: center;
+    /*background: rgba(19, 19, 21, 0.90);*/
+    font-family: 'Smokum', cursive;
+}
+
+#gameScreen {
+  background: #000; 
+  width: 1200px;
+  height: 700px;
+  z-index: 10;
+  background-image: url(images/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position:relative;
+}
+
+#gameScreen div {
+  border: 1px solid red;
+  position: absolute;
+}
+
+#div1 {
+  width: 50px;
+  top: 42%;
+  left: 80%;
+}
+
+#div2 {
+  width: 100px;
+  top: 70%;
+  left: 71%;
+}
+
+#div3 {
+  width: 48px;
+  top: 25.5%;
+  left: 42%;
+}
+
+#div4 {
+  width: 100px;
+  top: 70%;
+  left: 20%;
+}
+
+#div5 {
+  width: 60px;
+  top: 36%;
+  left: 93%;
+}
+
+#div6 {
+  width: 80px;
+  top: 65%;
+  left: 39%;
+}
+
+#div7 {
+  width: 45px;
+  top: 55%;
+  left: 50%;
+}
+
+#div8 {
+  width: 40px;
+  top: 52%;
+  left: 60%;
+}
+
+#div9 {
+  width: 100px;
+  top: 40%;
+  left: 22%;
+}
+
+#div10 {
+  width: 60px;
+  top: 6%;
+  left: 20%;
 }

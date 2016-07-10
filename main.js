@@ -23,7 +23,6 @@ $items.on('click', function() {
 });
 
 var playerIndex = 0;
-
 var players = [{
   score: 0,
   life: 100
@@ -38,7 +37,6 @@ function gameOver() {
   clearInterval(timerId);
   playerIndex++;
   player = players[playerIndex];
-
   if(player) {
     $('#splashScreen').removeClass("hidden");
     $('#topNav').addClass("hidden");
@@ -73,14 +71,11 @@ function playGame() {
           player.life -= 10;
           $('#DisplayPlayerLife').text("Life:" + player.life);
           if(player.life === 0) {
-            // stop(createRandomItem);
-            gameOver();
+            gameOver().delay(3*1000);
           }
         }
       }, 1000);
     } 
-    setTimeout(function() {
-    }, 28*1000); // 10sec
   }
 }
 
@@ -92,11 +87,9 @@ function checkForWinner() {
   $('#gameScreen').removeClass("hidden");
   if (players[0].score > players[1].score) {
     $('#winner').text("Player 1 Wins!");
-    //alert("Player 1 Wins!");
   } else {
     $('#winner').text("Player 1 Wins!");
   }
-  // $(start)
 }
 
 });
