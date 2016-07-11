@@ -64,8 +64,13 @@ $('#play').on('click', function() {
 $items.on('click', function() {
   if ($(this).hasClass("active")) {
     $(this).removeClass("active");
-    $(this).addClass("hidden");
-    $(this).addClass("magictime spaceOutUp");
+
+    $(this).addClass("animated zoomOut");
+    setTimeout(function(){
+      $(this).addClass("hidden");
+      $(this).removeClass("animated zoomOut");
+    }.bind(this), 100);
+    
     // $(this).fadeOut(500);
     players[playerIndex].score += 100;
     var audio = {};
@@ -127,7 +132,7 @@ function playGame() {
     if ($randomItem.hasClass("hidden")) {
       $randomItem.removeClass("hidden");
       $randomItem.addClass("active");
-      $randomItem.fadeIn("fast");
+      // $randomItem.fadeIn("fast");
       var audio = {};
       audio["enemyvoice"] = new Audio();
       audio["enemyvoice"].src = "sounds/enemyvoice.wav"
@@ -136,7 +141,8 @@ function playGame() {
         if($randomItem.hasClass("active")) {
           $randomItem.removeClass("active");
           $randomItem.addClass("hidden");
-          $randomItem.fadeOut("slow");
+          // $randomItem.addClass("animated zoomOut");
+          
           audio["enemygun"] = new Audio();
           audio["enemygun"].src = "sounds/enemygun.wav"
           audio["enemygun"].play();
@@ -163,11 +169,11 @@ function checkForWinner() {
   $splashscreen.removeClass("hidden");
   $('#restart').removeClass("hidden");
   if (players[0].score > players[1].score) {
-    $splashText.text("Player 1 Wins!");
+    $splashText.text("Player 1 is the Boss!");
     player1Wins += 1;
-    console.log("Player1 Wins!");
+    console.log("Player 1 is the Boss!");
   } else if (players[0].score < players[1].score) {
-    $splashText.text("Player 2 Wins!");
+    $splashText.text("Player 2 is the Boss!");
     player2Wins += 1;
     console.log("Player2 Wins!");
   } else if (players[0].score === players[1].score) {
