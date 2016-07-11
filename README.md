@@ -1,10 +1,34 @@
-# Project 1: Wild West Shooting Game
+# Project 1: World Wild West: a Western Shooting Game
 
 ## Technologies Used
 
-The game is based on three **time events** and a **click event**.
+The game is based on time **time events** and a **click events**.
 
-...
+I used animations both from the JS standard and from the Animate.css library and I sounds. The theme is called as soon as the page is loaded, the sound of the player gun is trigged by the click event and other two sounds are activated when the system choose randomly a DIV. 
+
+I am counting the player score, the turn wins and the life of the player.
+
+Thanks to the time event I can easly modify the pace of the game making it more or less hard in a few seconds. 
+
+The system is recordgnising the player who wins the turn as well as a draw.
+
+---
+
+## Bugs
+
+Currenty the game is running with no bugs, however in the last stage I had to remove an important feature because was causing a major bug. 
+
+On my original plan, the player's turn should end when the life reach zero or after 60 seconds (a fixed amount of time).
+
+I had to remove this feature because, In case of a player was not scoring points (quite unlikly, I know) the system was calling a draw before and not playing the player 2 turn.
+This because the last DIV was affecting the socre of the player 2 and the system immediately comapring the two players score.
+It took me quite a while to understand completely the reason of the bug and I preferred to remove the timer because I already had a similar buf before and solving that problem I created this new one. 
+Probably with a litte more time I could have solved also this last bug. 
+
+As aforementioned, the previous bu was also releted with the timer. When the 60 seconds finished, the last activated DIV event was endind after the end of the turn and was affecting the score of the player 2 since the very begin of its turn.
+At the end the system was also not loading the final funciton where I compare the two scores. 
+
+I had seveal other minor bugs during the project, mainly related wit the add and remove of classes from the DIVs.
 
 ---
 
@@ -68,20 +92,12 @@ I searched for the soundtrack and for a couple of other effect and I added them 
 
 Late in the evening I started to work on the anumations and, althoug the fadOut is working properly the fadeIn is not. I think I have a problem because all the DIVs should start with the class "hidden", became visible, and then return invisible with the class "hidden". However, the system seems not working properly. 
 
+--
+
 ### Monday
 
-To Do:
+On Monday I started the day solvign all the major issues that I faced during the weekend and I managed to fix all the bugs (and the new one created by my fix) just after noon.
 
-1: solve the bug of the timer and recreate the complete flow of the game.
-
-2: make the figures appear
-
-3: Fix the animations
-
-4: add audio using jQuery
-
-5: display player 1 and player 2 in the splash screen.
-
-6: better styling if possible
+I spent the rest of the afternoon styling and adding animations and sounds. 
 
 ---
