@@ -1,7 +1,7 @@
-
 $(function(){
 
 // variables in order to not keep accessing the DOME
+
 var $items = $("#gameScreen > div");
 var $splashText = $('#splashText');
 var $splashscreen = $('#splashScreen');
@@ -60,18 +60,18 @@ $('#play').on('click', function() {
 });
 
 // clicking in one of the figures, will make it disappearing and add 100 points at the player score.
+// animation taken from Animate CSS.
+// there is a delay beyween the class hidden and the animation, otherwise it will just make the div disappearing.
+// if clicked, the div will change class and add 100 points at the counter. 
 
 $items.on('click', function() {
   if ($(this).hasClass("active")) {
     $(this).removeClass("active");
-
     $(this).addClass("animated zoomOut");
     setTimeout(function(){
       $(this).addClass("hidden");
       $(this).removeClass("animated zoomOut");
     }.bind(this), 100);
-    
-    // $(this).fadeOut(500);
     players[playerIndex].score += 100;
     var audio = {};
     audio["gun"] = new Audio();
@@ -82,7 +82,8 @@ $items.on('click', function() {
   };
 });
 
-// at the end of the player turn, if the player 2 has not played, will start his turn. Otherwise the two scored will be compared.
+// at the end of the player turn, if the player 2 has not played, will start his turn. Otherwise the two scored will be compared. I used an array for checkinf the player. 
+// I had to create a finction called stopTimer otherwise at the end of the last DIV will affect the palyer 2 game.
 
 function gameOver() {
   stopTimers();
@@ -106,7 +107,7 @@ function stopTimers() {
   enemyTimers = [];
 }
 
-// when a turn starts, the board is created and a timer of 60 seconds is starting. 
+// I removed the timer for the turn because was buging thr game in case of a draw. The system was looking at both the scores at the end of the player 1 turn an, because of the two scores are zero (the player 2 has not played so the did not scored points) he will display a draw right at the end of the player 1 turn. 
 
 function playGame() {
   console.log("playGame");
@@ -127,12 +128,11 @@ function playGame() {
 // the system will activate randomly a div and it will became the the target of the click. If the target is not clicked in time, the player will lose 10 points of life. 
 //The turn ends when the time runs out or when the player life is 0. 
 
-  function createRandomItem() {                                                   // check for the bug
+  function createRandomItem() {
     var $randomItem = $items.eq(Math.floor(Math.random() * $items.length));
     if ($randomItem.hasClass("hidden")) {
       $randomItem.removeClass("hidden");
       $randomItem.addClass("active");
-      // $randomItem.fadeIn("fast");
       var audio = {};
       audio["enemyvoice"] = new Audio();
       audio["enemyvoice"].src = "sounds/enemyvoice.wav"
@@ -140,9 +140,7 @@ function playGame() {
       enemyTimers.push(setTimeout(function() {
         if($randomItem.hasClass("active")) {
           $randomItem.removeClass("active");
-          $randomItem.addClass("hidden");
-          // $randomItem.addClass("animated zoomOut");
-          
+          $randomItem.addClass("hidden");          
           audio["enemygun"] = new Audio();
           audio["enemygun"].src = "sounds/enemygun.wav"
           audio["enemygun"].play();
@@ -159,7 +157,8 @@ function playGame() {
   }
 }
 
-// at the end of the game the game board is removed, and in the splash screen will appear the winner. 
+// at the end of the game the game board is removed, and in the splash screen will appear the winner.
+// the system will check the score and display the winner.  
 
 function checkForWinner() {
   stopTimers();
@@ -179,6 +178,7 @@ function checkForWinner() {
   } else if (players[0].score === players[1].score) {
     $splashText.text("Draw! Beer time!");
   } 
+// I have to reset the counter when I start the new game. 
   playerIndex = 0;
   players[0].score = 0;
   players[0].life = 100;
@@ -186,8 +186,8 @@ function checkForWinner() {
   players[1].life = 100;
   $('#player1Victories').text("Wins: " + player1Wins);
   $('#player2Victories').text("Wins:" + player2Wins);
-
 }
+
 $('#restart').on('click', function() {
 
   $('#restart').addClass("hidden");
