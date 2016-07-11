@@ -64,6 +64,7 @@ $('#play').on('click', function() {
 $items.on('click', function() {
   if ($(this).hasClass("active")) {
     $(this).removeClass("active");
+    $(this).addClass("hidden");
     $(this).fadeOut(500);
     players[playerIndex].score += 100;
     var audio = {};
@@ -82,6 +83,7 @@ function gameOver() {
   playerIndex++;
   enemyTimers = [];
   if(playerIndex < 2) {
+    console.log(playerIndex, " is the playerIndex")
     $splashscreen.removeClass("hidden");
     $topNav.addClass("hidden");
     $gameScreen.addClass("hidden");
@@ -107,14 +109,14 @@ function playGame() {
   $splashscreen.addClass("hidden");
   $topNav.removeClass("hidden");
   $gameScreen.removeClass("hidden");
-  timerId = setInterval(createRandomItem, 900);
+  timerId = setInterval(createRandomItem, 1300);
 
   $('#DisplayPlayerScore').text("Score: " + players[playerIndex].score);
   $('#DisplayPlayerLife').text("Life:" + players[playerIndex].life);
   $splashText.text("Player 2, your turn!");
-  setTimeout(function() {
-    gameOver();
-  }, 10*1000);
+  // setTimeout(function() {
+  //   gameOver();
+  // }, 15*1000);
   
 // the system will activate randomly a div and it will became the the target of the click. If the target is not clicked in time, the player will lose 10 points of life. 
 //The turn ends when the time runs out or when the player life is 0. 
@@ -124,21 +126,20 @@ function playGame() {
     if ($randomItem.hasClass("hidden")) {
       $randomItem.removeClass("hidden");
       $randomItem.addClass("active");
-      $randomItem.addClass("magictime spaceInUp");
-      // $randomItem.fadeIn("fast");
+      $randomItem.fadeIn("fast");
       enemyTimers.push(setTimeout(function() {
         if($randomItem.hasClass("active")) {
           $randomItem.removeClass("active");
           $randomItem.addClass("hidden");
-          // $randomItem.fadeOut("slow");
-          players[playerIndex].life -= 10;
+          $randomItem.fadeOut("slow");
+          // players[playerIndex].life -= 10;
           $('#DisplayPlayerLife').text("Life:" + players[playerIndex].life);
           console.log(players[playerIndex]);
           if(players[playerIndex].life === 0) {
             gameOver();
           }
         }
-      }, 800));
+      }, 1000));
       console.log(enemyTimers);
     } 
   }
@@ -161,9 +162,9 @@ function checkForWinner() {
     $splashText.text("Player 2 Wins!");
     player2Wins += 1;
     console.log("Player2 Wins!");
-  } else {
+  } else if (players[0].score === players[1].score) {
     $splashText.text("Draw! Beer time!");
-  }
+  } 
   playerIndex = 0;
   players[0].score = 0;
   players[0].life = 100;

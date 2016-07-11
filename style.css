@@ -78,6 +78,7 @@ img {
   margin-left: auto;
   transform: translateY(+10px);
   z-index: -1;
+  text-align: center;
 }
 
 #splashScreen {
