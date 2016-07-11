@@ -34,7 +34,7 @@ I finished matching perfectly my shedule.
 
 ## Saturday
 
-On Saturday U created the score and life system. The player will score 100 point for every click and lose 10 points of life is the the DIV is not clicked in time and is deactivated by the system. 
+On Saturday I created the score and life system. The player will score 100 point for every click and lose 10 points of life is the the DIV is not clicked in time and is deactivated by the system. 
 
 I struggled quite a lot in implementing the second player and appeared a bug with the turn time. The last-activated-DIV event is longer than the turn of the player and is affectng the life counter of the Player 2 since the start of the turn.
 

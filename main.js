@@ -1,8 +1,9 @@
 
-// Create the DOM structure and append the first 4 DIVs
 $(function(){
 
 var $items = $("#gameScreen > div");
+
+// pressing on the start button will remove the splashscreen, create the navigation bar and the game board removing the "hidden" class and start the game.
 
 $('button').on('click', function() {
 
@@ -12,6 +13,8 @@ $('button').on('click', function() {
 
   playGame();
 });
+
+// clicking in one of the figures, will make it disappearing and add 100 points at the player score.
 
 $items.on('click', function() {
   if ($(this).hasClass("active")) {
@@ -23,6 +26,8 @@ $items.on('click', function() {
   };
 });
 
+// players' score and life. 
+
 var playerIndex = 0;
 var players = [{
   score: 0,
@@ -31,25 +36,42 @@ var players = [{
   score: 0,
   life: 100
 }];
+
+//times
+
 var timerId = 0;
+var enemyTimers = [];
 var player = players[playerIndex];
 
+// at the end of the player turn, if the player 2 has not played, will start his turn. Otherwise the two scored will be compared.
+
 function gameOver() {
-  clearInterval(timerId);
+  stopTimers();
   playerIndex++;
+  enemyTimers = [];
   player = players[playerIndex];
   if(player) {
     $('#splashScreen').removeClass("hidden");
     $('#topNav').addClass("hidden");
     $('#gameScreen').addClass("hidden");
   } else {
+    console.log("checkForWinner");
     checkForWinner();
   }
 }
 
+function stopTimers() {
+  clearInterval(timerId);
+  enemyTimers.forEach(function(timer) {
+    clearTimeout(timer);
+  });
+  enemyTimers = [];
+}
+
+// when a turn starts, the board is created and a timer of 60 seconds is starting. 
 
 function playGame() {
-  
+  console.log("playGame");
   $('#splashScreen').addClass("hidden");
   $('#topNav').removeClass("hidden");
   $('#gameScreen').removeClass("hidden");
@@ -60,37 +82,47 @@ function playGame() {
 
   setTimeout(function() {
     gameOver();
-  }, 30*1000); // 10sec
+  }, 5*1000);
   
+// the system will activate randomly a div and it will became the the target of the click. If the target is not clicked in time, the player will lose 10 points of life. 
+//The turn ends when the time runs out or when the player life is 0. 
+
   function createRandomItem() {                                                   // check for the bug
     var $randomItem = $items.eq(Math.floor(Math.random() * $items.length));
     if ($randomItem.hasClass("")) {
       $randomItem.toggleClass("active");
-      setTimeout(function() {
+      $randomItem.fadeIn("fast");
+      enemyTimers.push(setTimeout(function() {
         if($randomItem.hasClass("active")) {
           $randomItem.removeClass("active");
-          $randomItem.fadeOut("slow");
+          // $randomItem.fadeOut("slow");
           player.life -= 10;
           $('#DisplayPlayerLife').text("Life:" + player.life);
           if(player.life === 0) {
             gameOver();
           }
         }
-      }, 1000);
+      }, 3000));
+      console.log(enemyTimers);
     } 
   }
 }
 
+// at the end of the game the game board is removed, and in the splash screen will appear the winner. 
+
 function checkForWinner() {
-  $('#splashScreen').addClass("hidden");
-  $('#winner').removeClass("hidden");
-  $('button').addClass("hidden");
-  $('#topNav').removeClass("hidden");
-  $('#gameScreen').removeClass("hidden");
+  stopTimers();
+  $('#play').addClass("hidden");
+  $('#gameScreen').addClass("hidden");
+  $('#topNav').addClass("hidden");
+  $('#splashScreen').removeClass("hidden");
+  $('#restart').removeClass("hidden");
   if (players[0].score > players[1].score) {
     $('#winner').text("Player 1 Wins!");
+    console.log("Player1 Wins!");
   } else {
     $('#winner').text("Player 1 Wins!");
+    console.log("Player2 Wins!");
   }
 }
 
