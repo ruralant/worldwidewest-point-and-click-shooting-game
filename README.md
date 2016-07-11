@@ -1,6 +1,16 @@
 # Project 1: Wild West Shooting Game
 
-##Tuesday:
+## Technologies Used
+
+The game is based on three **time events** and a **click event**.
+
+...
+
+---
+
+##Planning and Timeline: 
+
+###Tuesday:
 
 As first step of the project, I used Trello for planning the whole project in details.
 
@@ -18,9 +28,9 @@ While I was planning I also searched for the background image because all the la
 I also searched for the images for the charaters appearing on the screen in order to be able to style quickly the first MVP as soon as it was finished.
 
 
----
+--
 
-##Friday:
+###Friday:
 
 On Friday I started to work at the MVP and I planned to finish it at the end of Saturday.
 
@@ -30,9 +40,9 @@ The second step was the implementation of the "click" event. When a DIV has been
 
 I finished matching perfectly my shedule.
 
----
+--
 
-## Saturday
+### Saturday
 
 On Saturday I created the score and life system. The player will score 100 point for every click and lose 10 points of life is the the DIV is not clicked in time and is deactivated by the system. 
 
@@ -42,9 +52,9 @@ I spent most of the day working in the implementation of the second player but I
 
 Due to the problem with the bug, I am not on shedule anymore.
 
----
+--
 
-## Sunday
+### Sunday
 
 On Sunday I started to work on the bug again because now is affecting also the final stage, where I am checking the winner. After a few hour without any result, I dedided to start with the styling.
 
@@ -58,7 +68,7 @@ I searched for the soundtrack and for a couple of other effect and I added them 
 
 Late in the evening I started to work on the anumations and, althoug the fadOut is working properly the fadeIn is not. I think I have a problem because all the DIVs should start with the class "hidden", became visible, and then return invisible with the class "hidden". However, the system seems not working properly. 
 
-## Monday
+### Monday
 
 To Do:
 
@@ -73,3 +83,5 @@ To Do:
 5: display player 1 and player 2 in the splash screen.
 
 6: better styling if possible
+
+---

@@ -1,10 +1,17 @@
 
 $(function(){
 
+// variables in order to not keep accessing the DOME
 var $items = $("#gameScreen > div");
 var $splashText = $('#splashText');
+var $splashscreen = $('#splashScreen');
+var $gameScreen = $('#gameScreen');
+var $topNav = $('#topNav');
 var audio = new Audio();
 var currentAudioIdx = 0;
+
+// audio loop
+
 var audioFiles = ["sounds/theme.wav"];
 
 audio.src = audioFiles[currentAudioIdx];
@@ -32,19 +39,20 @@ var players = [{
   life: 100
 }];
 
-//times
+//timers
 
 var timerId = 0;
 var enemyTimers = [];
 var player = players[playerIndex];
 
 // pressing on the start button will remove the splashscreen, create the navigation bar and the game board removing the "hidden" class and start the game.
+
 $splashText.text("Player 1, your turn!");
 $('#play').on('click', function() {
 
-  $('#splashScreen').removeClass("hidden");
-  $('#topNav').addClass("hidden");
-  $('#gameScreen').addClass("hidden");
+  $splashscreen.removeClass("hidden");
+  $topNav.addClass("hidden");
+  $gameScreen.addClass("hidden");
 
   playGame();
 });
@@ -57,9 +65,9 @@ $items.on('click', function() {
     $(this).fadeOut("slow");
     player.score += 100;
     var audio = {};
-    audio["walk"] = new Audio();
-    audio["walk"].src = "sounds/gun.wav"
-    audio["walk"].play();
+    audio["gun"] = new Audio();
+    audio["gun"].src = "sounds/gun.wav"
+    audio["gun"].play();
     $('#DisplayPlayerScore').text("Score: " + player.score);
     console.log("Score " + player.score);
   };
@@ -73,9 +81,9 @@ function gameOver() {
   enemyTimers = [];
   player = players[playerIndex];
   if(player) {
-    $('#splashScreen').removeClass("hidden");
-    $('#topNav').addClass("hidden");
-    $('#gameScreen').addClass("hidden");
+    $splashscreen.removeClass("hidden");
+    $topNav.addClass("hidden");
+    $gameScreen.addClass("hidden");
   } else {
     console.log("checkForWinner");
     checkForWinner();
@@ -96,9 +104,9 @@ function playGame() {
   console.log("playGame");
   $items.removeClass("active");
   $items.addClass("hidden");
-  $('#splashScreen').addClass("hidden");
-  $('#topNav').removeClass("hidden");
-  $('#gameScreen').removeClass("hidden");
+  $splashscreen.addClass("hidden");
+  $topNav.removeClass("hidden");
+  $gameScreen.removeClass("hidden");
   timerId = setInterval(createRandomItem, 1000);
 
   $('#DisplayPlayerScore').text("Score: " + player.score);
@@ -139,9 +147,9 @@ function playGame() {
 function checkForWinner() {
   stopTimers();
   $('#play').addClass("hidden");
-  $('#gameScreen').addClass("hidden");
-  $('#topNav').addClass("hidden");
-  $('#splashScreen').removeClass("hidden");
+  $gameScreen.addClass("hidden");
+  $topNav.addClass("hidden");
+  $splashscreen.removeClass("hidden");
   $('#restart').removeClass("hidden");
   if (players[0].score > players[1].score) {
     $splashText.text("Player 1 Wins!");
