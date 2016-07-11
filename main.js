@@ -65,7 +65,8 @@ $items.on('click', function() {
   if ($(this).hasClass("active")) {
     $(this).removeClass("active");
     $(this).addClass("hidden");
-    $(this).fadeOut(500);
+    $(this).addClass("magictime spaceOutUp");
+    // $(this).fadeOut(500);
     players[playerIndex].score += 100;
     var audio = {};
     audio["gun"] = new Audio();
@@ -127,12 +128,19 @@ function playGame() {
       $randomItem.removeClass("hidden");
       $randomItem.addClass("active");
       $randomItem.fadeIn("fast");
+      var audio = {};
+      audio["enemyvoice"] = new Audio();
+      audio["enemyvoice"].src = "sounds/enemyvoice.wav"
+      audio["enemyvoice"].play();
       enemyTimers.push(setTimeout(function() {
         if($randomItem.hasClass("active")) {
           $randomItem.removeClass("active");
           $randomItem.addClass("hidden");
           $randomItem.fadeOut("slow");
-          // players[playerIndex].life -= 10;
+          audio["enemygun"] = new Audio();
+          audio["enemygun"].src = "sounds/enemygun.wav"
+          audio["enemygun"].play();
+          players[playerIndex].life -= 10;
           $('#DisplayPlayerLife').text("Life:" + players[playerIndex].life);
           console.log(players[playerIndex]);
           if(players[playerIndex].life === 0) {
