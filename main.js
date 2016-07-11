@@ -33,11 +33,13 @@ audio.onended = function() {
 var playerIndex = 0;
 var players = [{
   score: 0,
-  life: 100
+  life: 100,
 },{
   score: 0,
-  life: 100
+  life: 100,
 }];
+var player1Wins = 0;
+var player2Wins = 0;
 
 //timers
 
@@ -62,14 +64,14 @@ $('#play').on('click', function() {
 $items.on('click', function() {
   if ($(this).hasClass("active")) {
     $(this).removeClass("active");
-    $(this).fadeOut("slow");
-    player.score += 100;
+    $(this).fadeOut(500);
+    players[playerIndex].score += 100;
     var audio = {};
     audio["gun"] = new Audio();
     audio["gun"].src = "sounds/gun.wav"
     audio["gun"].play();
-    $('#DisplayPlayerScore').text("Score: " + player.score);
-    console.log("Score " + player.score);
+    $('#DisplayPlayerScore').text("Score: " + players[playerIndex].score);
+    console.log("Score " + players[playerIndex].score);
   };
 });
 
@@ -79,13 +81,11 @@ function gameOver() {
   stopTimers();
   playerIndex++;
   enemyTimers = [];
-  player = players[playerIndex];
-  if(player) {
+  if(playerIndex < 2) {
     $splashscreen.removeClass("hidden");
     $topNav.addClass("hidden");
     $gameScreen.addClass("hidden");
   } else {
-    console.log("checkForWinner");
     checkForWinner();
   }
 }
@@ -107,10 +107,10 @@ function playGame() {
   $splashscreen.addClass("hidden");
   $topNav.removeClass("hidden");
   $gameScreen.removeClass("hidden");
-  timerId = setInterval(createRandomItem, 1000);
+  timerId = setInterval(createRandomItem, 900);
 
-  $('#DisplayPlayerScore').text("Score: " + player.score);
-  $('#DisplayPlayerLife').text("Life:" + player.life);
+  $('#DisplayPlayerScore').text("Score: " + players[playerIndex].score);
+  $('#DisplayPlayerLife').text("Life:" + players[playerIndex].life);
   $splashText.text("Player 2, your turn!");
   setTimeout(function() {
     gameOver();
@@ -124,19 +124,21 @@ function playGame() {
     if ($randomItem.hasClass("hidden")) {
       $randomItem.removeClass("hidden");
       $randomItem.addClass("active");
-      $randomItem.fadeIn("fast");
+      $randomItem.addClass("magictime spaceInUp");
+      // $randomItem.fadeIn("fast");
       enemyTimers.push(setTimeout(function() {
         if($randomItem.hasClass("active")) {
           $randomItem.removeClass("active");
           $randomItem.addClass("hidden");
           // $randomItem.fadeOut("slow");
-          player.life -= 10;
-          $('#DisplayPlayerLife').text("Life:" + player.life);
-          if(player.life === 0) {
+          players[playerIndex].life -= 10;
+          $('#DisplayPlayerLife').text("Life:" + players[playerIndex].life);
+          console.log(players[playerIndex]);
+          if(players[playerIndex].life === 0) {
             gameOver();
           }
         }
-      }, 2500));
+      }, 800));
       console.log(enemyTimers);
     } 
   }
@@ -153,18 +155,28 @@ function checkForWinner() {
   $('#restart').removeClass("hidden");
   if (players[0].score > players[1].score) {
     $splashText.text("Player 1 Wins!");
+    player1Wins += 1;
     console.log("Player1 Wins!");
   } else if (players[0].score < players[1].score) {
     $splashText.text("Player 2 Wins!");
+    player2Wins += 1;
     console.log("Player2 Wins!");
   } else {
     $splashText.text("Draw! Beer time!");
   }
+  playerIndex = 0;
+  players[0].score = 0;
+  players[0].life = 100;
+  players[1].score = 0;
+  players[1].life = 100;
+  $('#player1Victories').text("Wins: " + player1Wins);
+  $('#player2Victories').text("Wins:" + player2Wins);
+
 }
 $('#restart').on('click', function() {
 
   $('#restart').addClass("hidden");
   $('#play').removeClass("hidden");
-  location.reload();
+  playGame();
 });
 });
