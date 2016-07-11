@@ -2,10 +2,13 @@
 $(function(){
 
 var $items = $("#gameScreen > div");
-
+var audio = {};
+audio["walk"] = new Audio();
+audio["walk"].src = "sounds/theme.wav"
+audio["walk"].play();
 // pressing on the start button will remove the splashscreen, create the navigation bar and the game board removing the "hidden" class and start the game.
-
-$('button').on('click', function() {
+$('#splashText').text("Player 1, your turn!");
+$('#play').on('click', function() {
 
   $('#splashScreen').removeClass("hidden");
   $('#topNav').addClass("hidden");
@@ -21,6 +24,10 @@ $items.on('click', function() {
     $(this).removeClass("active");
     $(this).fadeOut("slow");
     player.score += 100;
+    var audio = {};
+    audio["walk"] = new Audio();
+    audio["walk"].src = "sounds/gun.wav"
+    audio["walk"].play();
     $('#DisplayPlayerScore').text("Score: " + player.score);
     console.log("Score " + player.score);
   };
@@ -79,7 +86,7 @@ function playGame() {
 
   $('#DisplayPlayerScore').text("Score: " + player.score);
   $('#DisplayPlayerLife').text("Life:" + player.life);
-
+  $('#splashText').text("Player 2, your turn!");
   setTimeout(function() {
     gameOver();
   }, 5*1000);
@@ -118,12 +125,19 @@ function checkForWinner() {
   $('#splashScreen').removeClass("hidden");
   $('#restart').removeClass("hidden");
   if (players[0].score > players[1].score) {
-    $('#winner').text("Player 1 Wins!");
+    $('#splashText').text("Player 1 Wins!");
     console.log("Player1 Wins!");
-  } else {
-    $('#winner').text("Player 1 Wins!");
+  } else if (players[0].score < players[1].score) {
+    $('#splashText').text("Player 2 Wins!");
     console.log("Player2 Wins!");
+  } else {
+    $('#splashText').text("Draw! Beer time!");
   }
 }
+$('#restart').on('click', function() {
 
+  $('#restart').addClass("hidden");
+  $('#play').removeClass("hidden");
+  playGame();
+});
 });
