@@ -2,12 +2,44 @@
 $(function(){
 
 var $items = $("#gameScreen > div");
-var audio = {};
-audio["walk"] = new Audio();
-audio["walk"].src = "sounds/theme.wav"
-audio["walk"].play();
+var $splashText = $('#splashText');
+var audio = new Audio();
+var currentAudioIdx = 0;
+var audioFiles = ["sounds/theme.wav"];
+
+audio.src = audioFiles[currentAudioIdx];
+audio.play();
+
+audio.onended = function() {
+  currentAudioIdx++;
+
+  if(currentAudioIdx > audioFiles.length-1) {
+    currentAudioIdx = 0;
+  }
+
+  this.src = audioFiles[currentAudioIdx];
+  this.play();
+}
+
+// players' score and life. 
+
+var playerIndex = 0;
+var players = [{
+  score: 0,
+  life: 100
+},{
+  score: 0,
+  life: 100
+}];
+
+//times
+
+var timerId = 0;
+var enemyTimers = [];
+var player = players[playerIndex];
+
 // pressing on the start button will remove the splashscreen, create the navigation bar and the game board removing the "hidden" class and start the game.
-$('#splashText').text("Player 1, your turn!");
+$splashText.text("Player 1, your turn!");
 $('#play').on('click', function() {
 
   $('#splashScreen').removeClass("hidden");
@@ -32,23 +64,6 @@ $items.on('click', function() {
     console.log("Score " + player.score);
   };
 });
-
-// players' score and life. 
-
-var playerIndex = 0;
-var players = [{
-  score: 0,
-  life: 100
-},{
-  score: 0,
-  life: 100
-}];
-
-//times
-
-var timerId = 0;
-var enemyTimers = [];
-var player = players[playerIndex];
 
 // at the end of the player turn, if the player 2 has not played, will start his turn. Otherwise the two scored will be compared.
 
@@ -79,6 +94,8 @@ function stopTimers() {
 
 function playGame() {
   console.log("playGame");
+  $items.removeClass("active");
+  $items.addClass("hidden");
   $('#splashScreen').addClass("hidden");
   $('#topNav').removeClass("hidden");
   $('#gameScreen').removeClass("hidden");
@@ -86,22 +103,24 @@ function playGame() {
 
   $('#DisplayPlayerScore').text("Score: " + player.score);
   $('#DisplayPlayerLife').text("Life:" + player.life);
-  $('#splashText').text("Player 2, your turn!");
+  $splashText.text("Player 2, your turn!");
   setTimeout(function() {
     gameOver();
-  }, 5*1000);
+  }, 10*1000);
   
 // the system will activate randomly a div and it will became the the target of the click. If the target is not clicked in time, the player will lose 10 points of life. 
 //The turn ends when the time runs out or when the player life is 0. 
 
   function createRandomItem() {                                                   // check for the bug
     var $randomItem = $items.eq(Math.floor(Math.random() * $items.length));
-    if ($randomItem.hasClass("")) {
-      $randomItem.toggleClass("active");
+    if ($randomItem.hasClass("hidden")) {
+      $randomItem.removeClass("hidden");
+      $randomItem.addClass("active");
       $randomItem.fadeIn("fast");
       enemyTimers.push(setTimeout(function() {
         if($randomItem.hasClass("active")) {
           $randomItem.removeClass("active");
+          $randomItem.addClass("hidden");
           // $randomItem.fadeOut("slow");
           player.life -= 10;
           $('#DisplayPlayerLife').text("Life:" + player.life);
@@ -109,7 +128,7 @@ function playGame() {
             gameOver();
           }
         }
-      }, 3000));
+      }, 2500));
       console.log(enemyTimers);
     } 
   }
@@ -125,19 +144,19 @@ function checkForWinner() {
   $('#splashScreen').removeClass("hidden");
   $('#restart').removeClass("hidden");
   if (players[0].score > players[1].score) {
-    $('#splashText').text("Player 1 Wins!");
+    $splashText.text("Player 1 Wins!");
     console.log("Player1 Wins!");
   } else if (players[0].score < players[1].score) {
-    $('#splashText').text("Player 2 Wins!");
+    $splashText.text("Player 2 Wins!");
     console.log("Player2 Wins!");
   } else {
-    $('#splashText').text("Draw! Beer time!");
+    $splashText.text("Draw! Beer time!");
   }
 }
 $('#restart').on('click', function() {
 
   $('#restart').addClass("hidden");
   $('#play').removeClass("hidden");
-  playGame();
+  location.reload();
 });
 });
