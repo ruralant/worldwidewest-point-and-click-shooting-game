@@ -1,16 +1,32 @@
 # Project 1: World Wild West: a Western Shooting Game
 
+![](https://s3-eu-west-1.amazonaws.com/world-wide-west/travelly-screenshot.png)
+
+##What is World Wild West:
+
+The game is completely written in **HTML**, **CSS** and **jQuery**. It is based on time and **click events** and on a **random number generator system**.
+I also used both **CSS** and **JavaScript animations** in order to practice and better understand both of them. 
+
+I also implemented **sounds using jQuery**, the main theme is called as soon as the page is loaded, the sound of the player gun is trigged by the click event and other two sounds are activated when the system choose to activate a random DOM element. 
+
+I am counting the player score, the turn wins (or draws) and the life of the player.
+
+Thanks to the time event I can easily modify the pace of the game making it more or less hard in a few seconds.
+
+--
+
 ## Technologies Used
 
-The game is based on time **time events** and a **click events**.
-
-I used animations both from the JS standard and from the Animate.css library and I sounds. The theme is called as soon as the page is loaded, the sound of the player gun is trigged by the click event and other two sounds are activated when the system choose randomly a DIV. 
-
-I am counting the player score, the turn wins and the life of the player.
-
-Thanks to the time event I can easly modify the pace of the game making it more or less hard in a few seconds. 
-
-The system is recordgnising the player who wins the turn as well as a draw.
+- **HTML5**
+- **CSS3**
+- **jQuery**
+- **Animate.CSS**
+- **Javascript Animations**
+- **Heroku**
+- **Sublime Editor**
+- **Trello**
+- **Balsamic**
+- **MacDown**
 
 ---
 
@@ -20,15 +36,15 @@ Currenty the game is running with no bugs, however in the last stage I had to re
 
 On my original plan, the player's turn should end when the life reach zero or after 60 seconds (a fixed amount of time).
 
-I had to remove this feature because, In case of a player was not scoring points (quite unlikly, I know) the system was calling a draw before and not playing the player 2 turn.
-This because the last DIV was affecting the socre of the player 2 and the system immediately comapring the two players score.
-It took me quite a while to understand completely the reason of the bug and I preferred to remove the timer because I already had a similar buf before and solving that problem I created this new one. 
+I had to remove this feature because, when a player was not scoring points (quite unlikly but still possible) the system was calling a draw before and player 2 turn start.
+This was happening because the last DIV was affecting the score of the player 2 and the system recognised the turn as played.
+It took me quite a while to understand completely the reason of the bug and I preferred to remove the timer because I already had a similar bug before and solving that problem I created this new one. 
 Probably with a litte more time I could have solved also this last bug. 
 
-As aforementioned, the previous bu was also releted with the timer. When the 60 seconds finished, the last activated DIV event was endind after the end of the turn and was affecting the score of the player 2 since the very begin of its turn.
-At the end the system was also not loading the final funciton where I compare the two scores. 
+As aforementioned, the previous bug was also releted with the timer. When the 60 seconds finished, the last activated DIV event was endind after the end of the turn and was affecting the score of the player 2 since the very begin of its turn.
+At the end of the game, the system was also not loading the final funciton where I compare the two scores. 
 
-I had seveal other minor bugs during the project, mainly related wit the add and remove of classes from the DIVs.
+I had seveal other minor bugs during the project, mainly related with the add/remove of classes from the DIVs but I planned a day just for debugging. 
 
 ---
 
@@ -50,7 +66,6 @@ The colors of the Trello items represent their **priority**.
 While I was planning I also searched for the background image because all the layout is based on it.
 
 I also searched for the images for the charaters appearing on the screen in order to be able to style quickly the first MVP as soon as it was finished.
-
 
 --
 
@@ -74,7 +89,7 @@ I struggled quite a lot in implementing the second player and appeared a bug wit
 
 I spent most of the day working in the implementation of the second player but I was not able to solve the bug of the timer.
 
-Due to the problem with the bug, I am not on shedule anymore.
+Due to the problem with the bug, I was not on shedule anymore.
 
 --
 
@@ -96,7 +111,7 @@ Late in the evening I started to work on the anumations and, althoug the fadOut 
 
 ### Monday
 
-On Monday I started the day solvign all the major issues that I faced during the weekend and I managed to fix all the bugs (and the new one created by my fix) just after noon.
+On Monday I started the day solving all the major issues that I faced during the weekend and I managed to fix all the bugs (and the new one created by my fix) just after noon.
 
 I spent the rest of the afternoon styling and adding animations and sounds. 
 
